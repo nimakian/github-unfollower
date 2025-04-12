@@ -29,4 +29,9 @@
   --color-border-menu: hsla(0, 0%, 100%, 0.12);
   --color-border-box: hsla(0, 0%, 100%, 0.08);
   --color-border-hr: #2c2c30;
+
+
+  --breakpoint-lg: initial;
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
 }
