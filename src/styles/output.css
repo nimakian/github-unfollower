@@ -40,8 +40,8 @@
     --color-text-primary: hsla(0, 0%, 100%, 0.87);
     --color-text-secondary: hsla(0, 0%, 100%, 0.56);
     --color-warning: #facc15;
-    --color-btn: #4f46e5;
-    --color-btn-hover: #4338ca;
+    --color-btn-primary: #4f46e5;
+    --color-btn-primary-hover: #4338ca;
     --color-border-input: hsla(0, 0%, 100%, 0.24);
     --color-border-box: hsla(0, 0%, 100%, 0.08);
     --animate-animate-slide-in: slide-in 0.5s ease-out;
@@ -345,8 +345,8 @@
   .bg-border-box {
     background-color: var(--color-border-box);
   }
-  .bg-btn {
-    background-color: var(--color-btn);
+  .bg-btn-primary {
+    background-color: var(--color-btn-primary);
   }
   .fill-warning {
     fill: var(--color-warning);
@@ -422,10 +422,10 @@
     --tw-outline-style: none;
     outline-style: none;
   }
-  .hover\:bg-btn-hover {
+  .hover\:bg-btn-primary-hover {
     &:hover {
       @media (hover: hover) {
-        background-color: var(--color-btn-hover);
+        background-color: var(--color-btn-primary-hover);
       }
     }
   }
