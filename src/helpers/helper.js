@@ -62,8 +62,18 @@ const showToast = ({ container, message, type, duration = 6000 }) => {
     }
 }
 
+const getFromLocal = (key) => {
+    return JSON.parse(localStorage.getItem(key))
+}
+const addToLocal = (key, value) => {
+    localStorage.setItem(key, JSON.stringify(value))
+}
+
+
 export {
     showPopup,
     hidePopup,
     showToast,
+    getFromLocal,
+    addToLocal,
 }
