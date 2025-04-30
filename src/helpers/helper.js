@@ -69,6 +69,29 @@ const addToLocal = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
+const getUsersNotFollowingMe = ({ following, followers }) => {
+    const usersNotFollowingMe = []
+
+    following.forEach((user, username) => {
+        if (!followers.has(username)) {
+            usersNotFollowingMe.push(user)
+        }
+    });
+
+    return usersNotFollowingMe
+}
+const getUsersINotFollowingBack = ({ followers, following }) => {
+    const usersINotFollowingBack = []
+
+    followers.forEach((user, username) => {
+        if (!following.has(username)) {
+            usersINotFollowingBack.push(user)
+        }
+    });
+
+    return usersINotFollowingBack
+}
+
 
 export {
     showPopup,
@@ -76,4 +99,6 @@ export {
     showToast,
     getFromLocal,
     addToLocal,
+    getUsersNotFollowingMe,
+    getUsersINotFollowingBack,
 }
