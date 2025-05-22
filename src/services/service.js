@@ -1,5 +1,10 @@
-const getUserProfileInfo = async (username) => {
-    const res = await fetch(`https://api.github.com/users/${username}`)
+const getUserProfileInfo = async ({ userName, token }) => {
+    const headers = {};
+    if (token) {
+        headers.Authorization = `token ${token}`
+    }
+
+    const res = await fetch(`https://api.github.com/users/${userName}`, { headers })
     const data = await res.json()
     return data
 }
@@ -15,7 +20,7 @@ const getRateLimit = async (token) => {
     return data
 }
 
-const getFollowing = async ({ username, token }) => {
+const getFollowing = async ({ userName, token }) => {
     const headers = {};
     if (token) {
         headers.Authorization = `token ${token}`
@@ -26,12 +31,12 @@ const getFollowing = async ({ username, token }) => {
     let following = new Map()
 
     while (hasMore) {
-        const res = await fetch(`https://api.github.com/users/${username}/following?per_page=${perPage}&page=${page}`, { headers })
+        const res = await fetch(`https://api.github.com/users/${userName}/following?per_page=${perPage}&page=${page}`, { headers })
         const data = await res.json()
         data.forEach(user => following.set(
             user.login,
             {
-                username: user.login,
+                userName: user.login,
                 profile: user.avatar_url,
             }
         ))
@@ -42,7 +47,7 @@ const getFollowing = async ({ username, token }) => {
     return following
 }
 
-const getFollowers = async ({ username, token }) => {
+const getFollowers = async ({ userName, token }) => {
     const headers = {};
     if (token) {
         headers.Authorization = `token ${token}`;
@@ -53,12 +58,12 @@ const getFollowers = async ({ username, token }) => {
     let followers = new Map();
 
     while (hasMore) {
-        const res = await fetch(`https://api.github.com/users/${username}/followers?per_page=${perPage}&page=${page}`, { headers });
+        const res = await fetch(`https://api.github.com/users/${userName}/followers?per_page=${perPage}&page=${page}`, { headers });
         const data = await res.json();
         data.forEach(user => followers.set(
             user.login,
             {
-                username: user.login,
+                userName: user.login,
                 profile: user.avatar_url,
             }
         ));
