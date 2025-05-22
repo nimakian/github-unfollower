@@ -21,8 +21,8 @@
     <header class="px-2.5">
         <h1 class="py-4 sm:py-6 text-xl sm:text-3xl text-text-primary text-center">Github Unfollower Detector</h1>
         <div class="flex items-center justify-between gap-x-2 sm:gap-x-3">
-            <input type="text" placeholder="Enter your GitHub UserName..." class="w-full px-3 py-4 outline-none border border-border-input rounded-md text-text-primary">
-            <button class="px-3 sm:px-4 py-4 whitespace-nowrap bg-btn-primary hover:bg-btn-primary-hover transition-colors duration-150 cursor-pointer text-text-title border border-border-box rounded-md">Search User</button>
+            <input id="search-user-input" type="text" placeholder="Enter your GitHub UserName..." class="w-full px-3 py-4 outline-none border border-border-input rounded-md text-text-primary">
+            <button id="search-user-btn" class="max-w-36 px-3 sm:px-4 py-4 whitespace-nowrap bg-btn-primary hover:bg-btn-primary-hover transition-colors duration-150 cursor-pointer text-text-title border border-border-box rounded-md">Search User</button>
         </div>
     </header>
 
@@ -209,13 +209,13 @@
         <div id="popup-token-content" class="bg-background-box border border-border-box rounded-xl p-6 max-w-md text-text-primary text-sm z-10">
             <h2 class="text-xl font-semibold text-text-title">Enter GitHub Token</h2>
             <div class="text-text-secondary mt-4 leading-relaxed">
-                <span>⚠️If you have over <b>6,000</b> total followers/following, a GitHub token is required.</span>
+                <span>⚠️If your total followers and following are close to or exceed <b>6,000</b> a GitHub token is required.</span>
                 <div class="py-5">
                     <p>🔑 <b>How to generate a GitHub token:</b></p>
                     <ol class="list-decimal list-inside">
                         <li>Go to <a href="https://github.com/settings/tokens" target="_blank" class="text-btn">https://github.com/settings/tokens</a></li>
                         <li>Click <b>"Generate new token (classic)"</b></li>
-                        <li>Set an <b>expiration date</b> (e.g., 7 days)</li>
+                        <li>Set an <b>expiration date</b> (e.g., 30 days)</li>
                         <li>Scroll down to the <b>"Select scopes"</b> section</li>
                         <li><b>Tick the checkbox for <code class="text-warning">user</code> scope</b></li>
                         <li>Click "Generate token" and copy it</li>

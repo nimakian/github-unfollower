@@ -302,6 +302,9 @@
   .w-full {
     width: 100%;
   }
+  .max-w-36 {
+    max-width: calc(var(--spacing) * 36);
+  }
   .max-w-md {
     max-width: var(--container-md);
   }
