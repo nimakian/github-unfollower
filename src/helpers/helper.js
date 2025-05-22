@@ -41,6 +41,13 @@ const showToast = ({ container, message, type, duration = 6000 }) => {
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
                 </svg>
             `
+        } else if (type === "search") {
+            iconToast = `
+            <svg class="h-6 mr-3 shrink-0 text-warning" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+        
+        `
         }
         container.insertAdjacentHTML("beforeend", `
             <div id="toast-item" class="p-3 max-w-sm flex items-center rounded-lg bg-background-box text-text-primary border border-border-box animate-animate-slide-in">
