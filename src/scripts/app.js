@@ -217,7 +217,7 @@ window.addEventListener("load", () => {
                         const getRateLimitRes = await getRateLimit(token)
                         if (getRateLimitRes.resources) {
 
-                            await fetchFollowersAndFollowing(
+                            return await fetchFollowersAndFollowing(
                                 { useToken: true, rateRemaining: getRateLimitRes.rate.remaining }, userName, token
                             )
 
