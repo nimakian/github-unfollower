@@ -5,7 +5,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/public/fonts/fira-code/fira-code.woff2") format("woff2");
+  src: url("../../public/fonts/fira-code/fira-code.woff2") format("woff2");
 }
 @layer theme, base, components, utilities;
 @layer theme {
