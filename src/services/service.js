@@ -74,10 +74,27 @@ const getFollowers = async ({ userName, token }) => {
     return followers;
 };
 
+// Fetches the date of the latest public event for a user
+const getLatestPublicEventDate = async ({ userName, token }) => {
+    const headers = {};
+    if (token) {
+        headers.Authorization = `token ${token}`;
+    }
+    // Fetch the user's public events (most recent first)
+    const res = await fetch(`https://api.github.com/users/${userName}/events/public?per_page=1`, { headers });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (Array.isArray(data) && data.length > 0 && data[0].created_at) {
+        return data[0].created_at;
+    }
+    return null; // No public events found
+}
+
 
 export {
     getUserProfileInfo,
     getRateLimit,
     getFollowing,
     getFollowers,
+    getLatestPublicEventDate,
 }

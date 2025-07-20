@@ -15,6 +15,7 @@ import {
     getFollowing,
     getRateLimit,
     getUserProfileInfo,
+    getLatestPublicEventDate, // <-- import the new function
 } from "../services/service.js";
 
 
@@ -107,9 +108,18 @@ window.addEventListener("load", () => {
         }
     }
 
+    // Helper to check if a date is more than 1 year ago
+    const isInactive = (dateString) => {
+        if (!dateString) return true;
+        const lastDate = new Date(dateString);
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+        return lastDate < oneYearAgo;
+    };
+
     // Renders a specific page of users from a given array into the provided container.
     // Updates pagination UI (current page, total pages, and button states).
-    const renderUsersPage = ({ usersArray, container, currentPage, itemsPerPage, paginationContainerSelector }) => {
+    const renderUsersPage = async ({ usersArray, container, currentPage, itemsPerPage, paginationContainerSelector }) => {
         const totalPages = Math.ceil(usersArray.length / itemsPerPage);
         paginationContainerSelector.querySelector(".current-page").innerHTML = currentPage;
         paginationContainerSelector.querySelector(".total-pages").innerHTML = totalPages;
@@ -139,15 +149,53 @@ window.addEventListener("load", () => {
 
         container.innerHTML = "";
         const startIndex = (currentPage - 1) * itemsPerPage;
-        const paginatedUsers = usersArray.slice(startIndex, startIndex + itemsPerPage);
+        let paginatedUsers = usersArray.slice(startIndex, startIndex + itemsPerPage);
+        // If filter is on, filter users to only inactive
+        if (showOnlyInactive) {
+            paginatedUsers = paginatedUsers.filter(user => user._isInactive === true);
+        }
         if (paginatedUsers.length) {
             paginatedUsers.forEach(user => {
                 container.insertAdjacentHTML("beforeend", `
-                    <a class="w-full p-2 bg-background-box border border-border-box rounded-md flex items-center" href="https://github.com/${user.userName}" target="_blank">
+                    <a class="user-item w-full p-2 bg-background-box border border-border-box rounded-md flex items-center relative" href="https://github.com/${user.userName}" target="_blank">
                         <img class="w-9 h-9 rounded-full" src="${user.profile}" />
                         <span class="text-sm ml-3 text-text-secondary">@${user.userName}</span>
+                        <span class="activity-status ml-6" style="font-size:9px; color:#bdbdbd; font-weight:400;">Checking</span>
                     </a>
                 `);
+            });
+            paginatedUsers.forEach(async (user, idx) => {
+                const token = getFromLocal("token");
+                const latestEventDate = await getLatestPublicEventDate({ userName: user.userName, token });
+                const userItems = container.getElementsByClassName("user-item");
+                const userElem = userItems[idx];
+                const statusElem = userElem.querySelector(".activity-status");
+                if (isInactive(latestEventDate)) {
+                    statusElem.textContent = "Inactive";
+                    statusElem.className = "activity-status ml-6 inline-block text-[10px] font-medium rounded-full align-middle transition-all";
+                    statusElem.style.background = '#fef2f2';
+                    statusElem.style.color = '#dc2626';
+                    statusElem.style.border = '1px solid #fca5a5';
+                    statusElem.style.boxShadow = '0 1px 2px 0 rgba(220,38,38,0.04)';
+                    statusElem.style.fontWeight = '500';
+                    statusElem.style.fontSize = '10px';
+                    statusElem.style.padding = '1px 7px';
+                    statusElem.style.minWidth = '38px';
+                    userElem.classList.add("opacity-60");
+                    user._isInactive = true;
+                } else {
+                    statusElem.textContent = "Active";
+                    statusElem.className = "activity-status ml-6 inline-block text-[10px] font-medium rounded-full align-middle transition-all";
+                    statusElem.style.background = '#f0fdf4';
+                    statusElem.style.color = '#16a34a';
+                    statusElem.style.border = '1px solid #6ee7b7';
+                    statusElem.style.boxShadow = '0 1px 2px 0 rgba(16,185,129,0.04)';
+                    statusElem.style.fontWeight = '500';
+                    statusElem.style.fontSize = '10px';
+                    statusElem.style.padding = '1px 7px';
+                    statusElem.style.minWidth = '38px';
+                    user._isInactive = false;
+                }
             });
         } else {
             container.insertAdjacentHTML("beforeend", `
@@ -286,6 +334,8 @@ window.addEventListener("load", () => {
 
                                 const usersNotFollowingMe = getUsersNotFollowingMe({ following, followers });
                                 const usersINotFollowingBack = getUsersINotFollowingBack({ following, followers });
+                                lastNotFollowingBackArray = usersNotFollowingMe;
+                                lastNotFollowedBackArray = usersINotFollowingBack;
                                 setupPaginationControls({
                                     usersArray: usersNotFollowingMe,
                                     container: notFollowingBackContainer,
@@ -327,6 +377,8 @@ window.addEventListener("load", () => {
 
                     const usersNotFollowingMe = getUsersNotFollowingMe({ following, followers });
                     const usersINotFollowingBack = getUsersINotFollowingBack({ following, followers });
+                    lastNotFollowingBackArray = usersNotFollowingMe;
+                    lastNotFollowedBackArray = usersINotFollowingBack;
                     setupPaginationControls({
                         usersArray: usersNotFollowingMe,
                         container: notFollowingBackContainer,
