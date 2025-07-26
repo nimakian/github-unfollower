@@ -1,9 +1,9 @@
 # 🕵🏻 GitHub Unfollower Detector
 
-A simple tool to detect GitHub users who **don't follow you back** and those you **don't follow back**.  
-Analyze your followers and following lists easily and fast.
+A simple tool to detect GitHub users who **don't follow you back** and those **you don't follow back**.  
+Easily analyze your followers and following lists.
 
-🔗 [Live Demo](https://nimakian0.github.io/github-unfollower/)
+🔗 [Live Demo](https://nimakian.github.io/github-unfollower/)
 
 ---
 ## ✨ Features

@@ -7,11 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "",
-  "description": "",
+  "author": "Nima Kian <nimakianaghdam@gmail.com> (https://github.com/nimakian)",
+  "license": "MIT",
+  "description": "A simple tool to detect GitHub users who don't follow you back and those you don't follow back.",
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.3",
     "tailwindcss": "^4.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nimakian/github-unfollower.git"
   }
 }
