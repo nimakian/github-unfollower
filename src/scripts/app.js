@@ -11,8 +11,7 @@ import {
     showSkeletonLoaders,
 } from "../helpers/helper.js";
 import {
-    getFollowers,
-    getFollowing,
+    getFollowingAndFollowers,
     getRateLimit,
     getUserProfileInfo,
 } from "../services/service.js";
@@ -183,8 +182,8 @@ window.addEventListener("load", () => {
                     showToast({ container: toastContainer, message: "Finding users who don’t follow back or aren’t followed back. Please wait...", type: "search", duration: 6000 })
                     showSkeletonLoaders({ container: notFollowingBackContainer })
                     showSkeletonLoaders({ container: notFollowedBackContainer })
-                    const following = await getFollowing({ userName, token })
-                    const followers = await getFollowers({ userName, token })
+                    const following = await getFollowingAndFollowers({ userName, token, type: "following" })
+                    const followers = await getFollowingAndFollowers({ userName, token, type: "followers" })
 
                     return { following, followers }
 
@@ -205,8 +204,8 @@ window.addEventListener("load", () => {
                     showToast({ container: toastContainer, message: "Finding users who don’t follow back or aren’t followed back. Please wait...", type: "search", duration: 6000 })
                     showSkeletonLoaders({ container: notFollowingBackContainer })
                     showSkeletonLoaders({ container: notFollowedBackContainer })
-                    const following = await getFollowing({ userName })
-                    const followers = await getFollowers({ userName })
+                    const following = await getFollowingAndFollowers({ userName, type: "following" })
+                    const followers = await getFollowingAndFollowers({ userName, type: "followers" })
 
                     return { following, followers }
 
